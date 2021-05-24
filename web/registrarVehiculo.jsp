@@ -37,7 +37,7 @@
                           for(CategoriaVO catVO: catDAO.listar()){
                           
                         %>
-                        <option value="<%=catVO.getCatId()%>"><%catVO.getCatTipo()%></option>
+                        <option value="<%=catVO.getCatId()%>"><%=catVO.getCatTipo()%></option>
                         <%
                             }
                         %>
