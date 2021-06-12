@@ -10,9 +10,14 @@ package ModeloVO;
  * @author Julian
  */
 public class UsuarioVO {
-    
+
     private String usuId, usulogin, usuPassword;
-    
+
+     public UsuarioVO(String usuId, String rolTIpo) {
+        this.usuId = usuId;
+        this.rolTIpo = rolTIpo;
+    }
+
     public UsuarioVO(){
     }
     public UsuarioVO(String usuId, String usulogin, String usuPassword) {
@@ -44,5 +49,22 @@ public class UsuarioVO {
     public void setUsuPassword(String usuPassword) {
         this.usuPassword = usuPassword;
     }
-        
+    
+    public String getRolId() {
+        return rolId;
+    }
+
+    public String getRolTIpo() {
+        return rolTIpo;
+    }
+    private String rolId, rolTIpo;
+    
+     public void setRolId(String rolId) {
+        this.rolId = rolId;
+    }
+
+    public void setRolTIpo(String rolTIpo) {
+        this.rolTIpo = rolTIpo;
+    }
+          
 }
