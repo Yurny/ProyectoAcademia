@@ -21,7 +21,7 @@
                 <img width="200px"  src="imagenes/logo3.png">
                 
                 <div class="form-group">
-                    <label for="Nombre">Usuaurio</label>
+                    <label for="Nombre">Usuario</label>
                     <input type="text" class="form-control" name="txtUsuario" id="Nombre" placeholder="Escribe tu usuario">
                 </div>
                 <div class="form-group">
