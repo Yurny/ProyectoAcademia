@@ -4,8 +4,13 @@
     Author     : Julian
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="ModeloVO.UsuarioVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Sesiones.jsp"%>
 <!DOCTYPE html>
+<script src="Validaciones.js" type="text/javascript"></script>
+
 <!-- Created By CodingNepal -->
 <html lang="en" dir="ltr">
   <head>
@@ -17,6 +22,22 @@
     
   </head>
   <body>
+      <select onchange="redireccion(value)">
+            <option>Seleccione Rol...</option>
+            
+            <%
+            UsuarioVO usuVO = new UsuarioVO();
+            ArrayList <UsuarioVO> listaRoles = (ArrayList <UsuarioVO>)buscarSesion.getAttribute("roles");
+            for (int i = 0; i < listaRoles.size(); i++) {
+                    
+                usuVO = listaRoles.get(i); 
+            %>
+            <option value="<%=usuVO.getRolTIpo()%>"><%=usuVO.getRolTIpo()%></option>
+            
+            <%}%>
+        </select>
+        </select>
+      </select>
     <input type="checkbox" id="check">
     <label for="check">
       <i class="fas fa-bars" id="btn"></i>
@@ -32,5 +53,7 @@
     </ul>
    </div>
    <section></section>
+       
+   </form>
   </body>
 </html>
