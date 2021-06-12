@@ -5,9 +5,11 @@
  */
 package Controlador;
 
+import ModeloDAO.RolDAO;
 import ModeloDAO.UsuarioDAO;
 import ModeloVO.UsuarioVO;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,19 +64,37 @@ public class UsuarioControlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("actualizarUsuario.jsp").forward(request, response);
                 break;
-            case 3://Iniciar Session
+            case 3: //Iniciar sesión
+            
                 if (usuDAO.iniciarSesion(usuLogin, usuPassword)) {
                     
                     HttpSession miSesion = request.getSession(true);
-                    usuVO = new UsuarioVO(usuId,usuLogin,usuPassword);
-                    miSesion.setAttribute("datos", usuVO);
+                    RolDAO rolDAO = new RolDAO();
+                    ArrayList<UsuarioVO> listaRoles = rolDAO.roles(usuLogin);
                     
-                   // request.setAttribute("mensajeExito", "El usuario se actualizo corectamente");
-                   request.getRequestDispatcher("menu.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("mensajeError", "Datos incorrectos");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    usuVO = new UsuarioVO(usuVO.getUsuId(), usuLogin, usuPassword);
+                    miSesion.setAttribute("datos", usuVO); 
+                    
+                    for (int i = 0; i < listaRoles.size(); i++) {
+                        usuVO= listaRoles.get(i);   
+                    }
+                    miSesion.setAttribute("roles", listaRoles);
+                    if (listaRoles.size()>1) {
+                         request.getRequestDispatcher("menu.jsp").forward(request, response);
+                    }else if (usuVO.getRolTIpo().equals("Vendedor")){
+                        request.getRequestDispatcher("menu_Vendedor.jsp").forward(request, response);
+                    }else{
+                        request.getRequestDispatcher("menu_Comprador.jsp").forward(request, response);
+                    }
+                    
+                    
+                      
+                    
                 }
+                else {
+                      request.setAttribute("mensajeError", "Datos de inicio de sesión incorrectos");
+                      request.getRequestDispatcher("index.jsp").forward(request, response);
+                      }
                 break;
         }
     }
